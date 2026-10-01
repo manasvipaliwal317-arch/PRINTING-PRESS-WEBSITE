@@ -130,7 +130,7 @@
           <div id="form-alert" style="display: none; padding: 1rem 1.25rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem; background: #D1FAE5; color: #065F46; border: 1px solid #A7F3D0; font-size: 0.9rem;"></div>
 
           <form id="contact-form">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-row">
               <div class="form-group">
                 <label for="contact-name">Full Name *</label>
                 <input type="text" id="contact-name" class="form-control" placeholder="Alex Morgan" required>
@@ -141,7 +141,7 @@
               </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-row">
               <div class="form-group">
                 <label for="contact-phone">Phone Number</label>
                 <input type="tel" id="contact-phone" class="form-control" placeholder="+1 (555) 000-0000">
@@ -192,9 +192,9 @@
         <p class="section-desc">100 Industrial Press Way, Suite 400, New York, NY 10001</p>
       </div>
 
-      <div style="background: var(--bg-dark); color: #FFF; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); position: relative; height: 360px; display: flex; align-items: center; justify-content: center; text-align: center;">
-        <div style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(6,26,58,0.95), rgba(11,61,145,0.85)), url('images/about-facility.png'); background-size: cover; background-position: center; opacity: 0.4;"></div>
-        <div style="position: relative; z-index: 2; padding: 2rem;">
+      <div class="map-placeholder">
+        <div style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(6,26,58,0.95), rgba(11,61,145,0.85)), url('images/offset-printing.png'); background-size: cover; background-position: center; opacity: 0.4;"></div>
+        <div style="position: relative; z-index: 2; padding: 1rem;">
           <i class="fas fa-map-marked-alt" style="font-size: 3.5rem; color: var(--accent); margin-bottom: 1rem;"></i>
           <h3 style="color: #FFF; font-size: 1.75rem; margin-bottom: 0.5rem;">Google Maps Location Embed</h3>
           <p style="color: #CBD5E1; max-width: 500px; margin: 0 auto 1.5rem auto;">Midtown Manhattan Industrial District, 2 blocks from Penn Station Transit Hub.</p>

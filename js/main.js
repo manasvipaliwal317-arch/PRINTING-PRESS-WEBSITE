@@ -39,24 +39,75 @@ function initNavbar() {
     }
   });
 
+  // Helper to close mobile menu cleanly
+  const closeMobileMenu = () => {
+    if (navMenu && navMenu.classList.contains('active')) {
+      navMenu.classList.remove('active');
+      document.body.classList.remove('no-scroll');
+      if (hamburger) {
+        hamburger.setAttribute('aria-expanded', 'false');
+        const icon = hamburger.querySelector('i');
+        if (icon) icon.className = 'fas fa-bars';
+      }
+    }
+  };
+
   // Toggle mobile navigation drawer
   if (hamburger && navMenu) {
-    hamburger.addEventListener('click', () => {
-      navMenu.classList.toggle('active');
+    hamburger.setAttribute('aria-expanded', 'false');
+
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isActive = navMenu.classList.toggle('active');
+      hamburger.setAttribute('aria-expanded', isActive ? 'true' : 'false');
       const icon = hamburger.querySelector('i');
       if (icon) {
-        icon.className = navMenu.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars';
+        icon.className = isActive ? 'fas fa-times' : 'fas fa-bars';
       }
+      if (isActive) {
+        document.body.classList.add('no-scroll');
+      } else {
+        document.body.classList.remove('no-scroll');
+      }
+    });
+
+    // Close menu when clicking on any nav link
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        closeMobileMenu();
+      });
     });
 
     // Close menu when clicking outside
     document.addEventListener('click', (e) => {
       if (!header?.contains(e.target) && navMenu.classList.contains('active')) {
-        navMenu.classList.remove('active');
-        const icon = hamburger.querySelector('i');
-        if (icon) icon.className = 'fas fa-bars';
+        closeMobileMenu();
       }
     });
+
+    // Close menu when pressing Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeMobileMenu();
+        // Also close any active modals
+        document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+      }
+    });
+
+    // Auto-close menu if viewport resized to desktop width
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
+        closeMobileMenu();
+      }
+    });
+
+    // Ensure mobile drawer has a dedicated quote button if not already present
+    if (!navMenu.querySelector('.nav-menu-cta')) {
+      const ctaDiv = document.createElement('div');
+      ctaDiv.className = 'nav-menu-cta';
+      ctaDiv.innerHTML = '<a href="pricing.html" class="btn btn-accent btn-sm w-100"><i class="fas fa-calculator"></i> Get an Instant Quote</a>';
+      navMenu.appendChild(ctaDiv);
+    }
   }
 
   // Active navigation highlight based on current path
